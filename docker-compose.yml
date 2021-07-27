@@ -1,0 +1,25 @@
+version: '3.9'
+services:
+    api-server:
+        image: dustindward/apiservice:v1.1.1
+        ports:
+            - 8080:8080
+        depends_on:
+            - mongodb
+
+    data-processing:
+        image: dustindward/dataprocessing:v1.1.1
+        ports:
+            - 8081:8081
+
+    mongodb:
+        image: mongo
+        ports:
+            - 27017:27017
+        volumes:
+            - "mongodata:/data/db"
+
+volumes: 
+    mongodata:
+        driver: local
+    

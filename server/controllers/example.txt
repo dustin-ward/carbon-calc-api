@@ -1,0 +1,78 @@
+// func GetAllDataPoints(w http.ResponseWriter, r *http.Request) {
+// 	fmt.Fprintf(w, "All Data Points:")
+// 	fmt.Println("Endpoint Hit: allDataPoints")
+
+// 	w.Header().Set("content-type", "application/json")
+// 	w.Header().Set("Access-Control-Allow-Origin", "*")
+// 	w.Header().Set("Access-Control-Allow-Methods", "GET")
+// 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+
+// 	var u []User
+
+// 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+// 	cur, err := database.GetCollection().Find(ctx, bson.D{})
+// 	if err != nil {
+// 		w.WriteHeader(http.StatusInternalServerError)
+// 		w.Write([]byte(`{ "message": "` + err.Error() + `" }`))
+// 		return
+// 	}
+
+// 	for cur.Next(ctx) {
+// 		//Create a value into which the single document can be decoded
+// 		var elem User
+// 		err := cur.Decode(&elem)
+// 		if err != nil {
+// 			log.Fatal(err)
+// 		}
+
+// 		u = append(u, elem)
+// 	}
+
+// 	json.NewEncoder(w).Encode(u)
+// }
+
+// func GetDataPoint(w http.ResponseWriter, r *http.Request) {
+// 	vars := mux.Vars(r)
+// 	s := vars["id"]
+// 	id, _ := primitive.ObjectIDFromHex(vars["id"])
+
+// 	fmt.Fprintf(w, "Data Points"+s+":")
+// 	fmt.Println("Endpoint Hit: dataPoint/" + s)
+
+// 	w.Header().Set("content-type", "application/json")
+// 	// w.Header().Set("Access-Control-Allow-Origin", "*")
+// 	// w.Header().Set("Access-Control-Allow-Methods", "GET")
+// 	// w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+
+// 	var u User
+
+// 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
+// 	err := database.GetCollection().FindOne(ctx, User{ID: id}).Decode(&u)
+// 	if err != nil {
+// 		w.WriteHeader(http.StatusInternalServerError)
+// 		w.Write([]byte(`{ "message": "` + err.Error() + `" }`))
+// 		return
+// 	}
+
+// 	json.NewEncoder(w).Encode(u)
+// }
+
+// func CreateDataPoint(w http.ResponseWriter, r *http.Request) {
+// 	fmt.Println("Endpoint Hit: create")
+
+// 	w.Header().Set("content-type", "application/json")
+// 	// w.Header().Set("Access-Control-Allow-Origin", "*")
+// 	// w.Header().Set("Access-Control-Allow-Methods", "POST")
+// 	// w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+
+// 	var u User
+// 	json.NewDecoder(r.Body).Decode(&u)
+
+// 	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
+// 	result, err := database.GetCollection().InsertOne(ctx, u)
+// 	if err != nil {
+// 		log.Fatal(err.Error())
+// 	}
+
+// 	json.NewEncoder(w).Encode(result)
+// }
